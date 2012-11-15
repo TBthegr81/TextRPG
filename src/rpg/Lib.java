@@ -168,9 +168,9 @@ public class Lib{
 	    ResultSet rs = null;
 	    String[] Answers = new String[40];
 	        
-		String url = "jdbc:mysql://server.snekabel.se/pokemonrpg2";
-        String user = "pok";
-        String password = "lol123";
+		String url = "jdbc:mysql://";
+        String user = "";
+        String password = "";
         
         try {
             
