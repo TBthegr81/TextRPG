@@ -1,4 +1,4 @@
-package rpg;
+/*package rpg;
 
 import java.util.ArrayList;
 
@@ -33,3 +33,4 @@ private ArrayList<Pokemon> pokemon;
 		return name;
 	}
 }
+*/

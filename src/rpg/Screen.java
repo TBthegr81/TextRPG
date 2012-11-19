@@ -14,14 +14,12 @@ import javax.swing.JFrame;
 
 public class Screen extends JFrame {
 	
-	private final static int HEIGHT = 500;
-	private final static int WIDTH = (int) (HEIGHT * 1.7);
+	private final static int HEIGHT = 200;
+	private final static int WIDTH = 300;
 	private Color skyColor = Color.CYAN;
 	private Color groundColor = Color.GREEN;
 	private Color textColor = Color.BLACK;
  	private ArrayList<Pokemon> pokemon;
-	private Image unhappyFace;
-	private Image happyFace;
 	private Image fence;
 	
 	public Screen() {
@@ -29,7 +27,7 @@ public class Screen extends JFrame {
 	}
 	
 	private void init() {
-		setTitle("Pokémon RPG Battle");
+		setTitle("Bulbasaur");
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -42,14 +40,14 @@ public class Screen extends JFrame {
 	    
 	}
 	
-	private void importImages() {
+	/*private void importImages() {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource("fence.png"));
 		fence = ii.getImage();
 	    ImageIcon ii2 = new ImageIcon(this.getClass().getResource("parrot_head idle.png"));
 	    happyFace = ii2.getImage();
 	    ImageIcon ii3 = new ImageIcon(this.getClass().getResource("notHappyFace.png"));
 	    unhappyFace = ii3.getImage();
-	}
+	}*/
 	
 	private ArrayList<Image> getImages(Pokemon a) {
 		ArrayList<Image> images = new ArrayList<Image>();
@@ -84,10 +82,10 @@ public class Screen extends JFrame {
 				
 				g2.setColor(textColor);
 				g2.setFont(new Font("Verdana", Font.PLAIN, 14));
-				g2.drawString(a.getName(), bodyOffset + 10, yOffset - 20);
+				g2.drawString(a.getName(), bodyOffset + 10, yOffset - 10);
 				
-				int textX = 600;
-				int textY = 50;
+				int textX = 200;
+				int textY = 40;
 				
 				g2.drawString("Level: " + a.getStats()[0], textX, textY);
 				g2.drawString("HP: " + a.getStats()[1], textX, textY + 20);

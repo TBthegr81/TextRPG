@@ -75,7 +75,7 @@ private String attacks[] = new String[4];
 	
 	public int[] getStats()
 	{
-		int enarray[] = new  int[5];
+		int enarray[] = new  int[6];
 		enarray[0] = lvl;
 		enarray[1] = stats[0];
 		enarray[2] = stats[1];
