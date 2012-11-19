@@ -9,7 +9,7 @@ public class RPG
 		// Skriver ut menyn
 		Lib.write("Pokémon - Awesome version");
 		Lib.choice("Menue", new String[]{"New Game","Continue","Options"}, 0);
-		
+
 		// Kallar på event 0 vid new-game, välkomsteventet med Oak som ger player en introduktion av världen.
 		Lib.event(0, "welcome");
 		Lib.writed("Oak: Hello and welcome to the world of Pokémon!\nMy name is professor Oak. But people just call me the Pokémon Professor!\nPokémon are the strange creatures that inhabitats this land. Some people uses them as pets and some even uses them to battle others!\n");
@@ -102,7 +102,8 @@ public class RPG
 				libPokemon.battle(u,x, trainer, 1, pokemon);
 				}
 				catch(Exception ex){System.out.println("U need Int noob");}
-			}*/
+			}
+			*/
 			System.out.print(">");
 		}
 	

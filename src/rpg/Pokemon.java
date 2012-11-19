@@ -53,7 +53,7 @@ private String attacks[] = new String[4];
 	}
 	
 	// Ger tillabaka alla stats
-	public int[] getStats()
+	public int[] getStats2()
 	{
 		return stats;
 	}
@@ -66,5 +66,23 @@ private String attacks[] = new String[4];
 	public int getMaxXP()
 	{
 		return maxxp;
+	}
+	
+	public int getPkmnNr()
+	{
+		return pkmnnr;
+	}
+	
+	public int[] getStats()
+	{
+		int enarray[] = new  int[5];
+		enarray[0] = lvl;
+		enarray[1] = stats[0];
+		enarray[2] = stats[1];
+		enarray[3] = stats[2];
+		enarray[4] = stats[3];
+		enarray[5] = stats[4];
+		
+		return enarray;
 	}
 }
