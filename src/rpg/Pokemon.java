@@ -2,7 +2,6 @@ package rpg;
 public class Pokemon{
 	// De flesta variabler här kommer få mer användning när databasen sen funkar och jag kan smidigt lagra dem
 private String name;
-@SuppressWarnings("unused")
 private int pkmnnr;
 private int owner;
 private int lvl;
@@ -12,8 +11,10 @@ private int maxxp;
 private String attacks[] = new String[4];
 
 	//Pokemon(){}
-	Pokemon(int inpkmnr, String inName, int inLvl, int inOwner){
+	Pokemon(int inpkmnr, String inName, int inLvl, int inOwner) throws Fail{
 		pkmnnr = inpkmnr;
+		if(pkmnnr >= 1 && pkmnnr <= 649)
+		{
 		name = inName;
 		lvl = inLvl;
 		owner = inOwner;
@@ -27,6 +28,11 @@ private String attacks[] = new String[4];
 		attacks[1] = "Growl";
 		xp = 1;
 		maxxp = 50;
+		}
+		else
+		{
+			throw new Fail("Number is not valid Pokémon");
+		}
 	}
 	// printar namn, level, stats och såntdär.
 	public void showInfo(){
