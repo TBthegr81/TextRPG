@@ -1,5 +1,7 @@
 package rpg;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Battle {
@@ -7,11 +9,15 @@ public class Battle {
 	public static void battle(int player1, int player2, Trainer tr[], int type, Pokemon pk[])
 	{
 		Scanner sc = new Scanner(System.in);
+		Screen s = new Screen();
+		ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>(Arrays.asList(pk));
+		
 		int battletype=type;
 		int rounds = 0;
 		System.out.println("New Battle!\n"+ tr[player1].returnname() + " VS " + tr[player2].returnname());
 		boolean battle = true;
 		while(battle){
+			s.drawWorld(pokemon);
 			rounds++;
 			System.out.println("\nRound: " + rounds);
 			// Alternativen man har i början av sin runda. Fight låter en attackera

@@ -1,4 +1,6 @@
 package rpg;
+
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,46 +23,42 @@ public class Screen extends JFrame {
 	private final static int HEIGHT = 200;
 	private final static int WIDTH = 300;
 	private Color skyColor = Color.CYAN;
+	private Color healthColor = Color.RED;
+	private Color barColor = Color.WHITE;
 	private Color groundColor = Color.GREEN;
 	private Color textColor = Color.BLACK;
+	private final static int hpperecent = 80;
  	private ArrayList<Pokemon> pokemon;
-	private Image fence;
 	
 	public Screen() {
 		init();
 	}
 	
+	
 	private void init() {
-		setTitle("Bulbasaur");
-		setSize(WIDTH, HEIGHT);
+		setTitle("Battle");
+		setSize(WIDTH, HEIGHT+100);
 		setResizable(false);
 		setLocationRelativeTo(null);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    setVisible(true);
 	    setAlwaysOnTop(false);
-	    
-	    // importera bild
-	    //importImages();
-	    
 	}
 	
-	/*private void importImages() {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("fence.png"));
-		fence = ii.getImage();
-	    ImageIcon ii2 = new ImageIcon(this.getClass().getResource("parrot_head idle.png"));
-	    happyFace = ii2.getImage();
-	    ImageIcon ii3 = new ImageIcon(this.getClass().getResource("notHappyFace.png"));
-	    unhappyFace = ii3.getImage();
-	}*/
-	
-	private ArrayList<Image> getImages(Pokemon a) {
+	private ArrayList<Image> getImages(Pokemon a, Pokemon b) {
 		ArrayList<Image> images = new ArrayList<Image>();
 		// body
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(a.getPkmnNr() + ".png"));
 		images.add(ii.getImage());
 		// head
-		//ImageIcon ii2 = new ImageIcon(this.getClass().getResource(a.getType() + "_head " + a.getState() + ".png"));
-		//images.add(ii2.getImage());
+		ImageIcon ii2 = new ImageIcon(this.getClass().getResource(b.getPkmnNr() + ".png"));
+		images.add(ii2.getImage());
+		
+		ImageIcon ii3 = new ImageIcon(this.getClass().getResource("enemyhpbar.png"));
+		images.add(ii3.getImage());
+		
+		ImageIcon ii4 = new ImageIcon(this.getClass().getResource("playerhpbar.png"));
+		images.add(ii4.getImage());
 		
 		return images;
 	}
@@ -74,41 +72,52 @@ public class Screen extends JFrame {
 		g2.setColor(groundColor);
 		g2.fillRect(0, HEIGHT/2, WIDTH, HEIGHT/2);
 		
-		g2.drawImage(fence, 0, HEIGHT/3, this);
+		// GUI
+		Button button1 = new Button("Button One");
+		
 		
 		if (pokemon != null) {
-			int bodyOffset = 10;
-			int yOffset = HEIGHT/4;
-			for (int i = 0; i < pokemon.size(); i++) {
-				Pokemon a = pokemon.get(i);
-				ArrayList<Image> images = getImages(a);
-				g2.drawImage(images.get(0), bodyOffset, yOffset, this);
-				
-				g2.setColor(textColor);
-				g2.setFont(new Font("Verdana", Font.PLAIN, 14));
-				g2.drawString(a.getName(), bodyOffset + 10, yOffset - 10);
-				
-				int textX = 200;
-				int textY = 40;
-				
-				g2.drawString("Level: " + a.getStats()[0], textX, textY);
-				g2.drawString("HP: " + a.getStats()[1], textX, textY + 20);
-				g2.drawString("Attack: " + a.getStats()[2], textX, textY + 40);
-				g2.drawString("Defence: " + a.getStats()[3], textX, textY + 60);
-				g2.drawString("Speed: " + a.getStats()[4], textX, textY + 80);
-				g2.drawString("Special: " + a.getStats()[5], textX, textY + 100);
-				
-				/*
-				if (a.getHowHappy() > 50) {
-					g2.drawImage(happyFace, bodyOffset, yOffset, this);
-				} else {
-					g2.drawImage(unhappyFace, bodyOffset, yOffset, this);
-				}
-				*/
-				
-				bodyOffset += images.get(0).getWidth(null);
-				yOffset += 80;
-			}
+			// Draw playerpoke
+			int x = 10;
+			int y = 110;
+			Pokemon a = pokemon.get(0);
+			Pokemon b = pokemon.get(1);
+			ArrayList<Image> images = getImages(a,b);
+			
+			g2.drawImage(images.get(0), x, y, this);
+			
+			WriteText(g2,180,130,a.getName(),textColor);
+			
+			// Healthbar
+			x = 125;
+			y = 130;
+			g2.drawImage(images.get(3), x, y, this);
+			g2.setColor(barColor);
+			g2.fillRect(180, 133, 90, 12);
+			g2.setColor(healthColor);
+			g2.fillRect(180, 135, hpperecent, 8);
+			WriteText(g2,180,160,hpperecent + " / " + 100,textColor);
+			
+			// Draw enemy
+			x = 180;
+			y = 20;
+			g2.drawImage(images.get(1), x, y, this);
+			x = 20;
+			y = 40;
+			g2.setColor(textColor);
+			g2.setFont(new Font("Verdana", Font.PLAIN, 14));
+			g2.drawString(b.getName(), x, y);
+
+			
+			// Healthbar
+			x = 5;
+			y = 50;
+			g2.drawImage(images.get(2), x, y, this);
+			g2.setColor(barColor);
+			g2.fillRect(45, 55, 90, 8);
+			g2.setColor(healthColor);
+			g2.fillRect(45, 57, hpperecent, 4);
+			
 		}
 	}
 	
@@ -138,6 +147,14 @@ public class Screen extends JFrame {
 			skyColor = Color.BLACK;
 			groundColor = Color.DARK_GRAY;
 		}
+		
 	}
 	
+	public static void WriteText(Graphics2D g2, int x, int y, String text, Color textColor)
+	{
+		textColor = Color.BLACK;
+		g2.setColor(textColor);
+		g2.setFont(new Font("Verdana", Font.PLAIN, 14));
+		g2.drawString(text, x, y);
+	}
 }

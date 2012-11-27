@@ -1,4 +1,5 @@
 package rpg;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -19,7 +20,11 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class Lib{
+	static String url = "jdbc:mysql://server.snekabel.se/pokemonrpg2";
+    static String user = "pok";
+    static String password = "Pokemon1";
 	
 	// Förkorting av System.out.println metoden.
 	public static void write(String input){
@@ -67,7 +72,7 @@ public class Lib{
 	// Funktion för att enkelt kunna skapa ett val för player.
 	// Tar emot Frågan som ska ställas, de alternativ man kan välja som en Array
 	// och om det finns ett svar man måste välja så tas det in också.
-	public static int choice(String question, String choices[], int rightAnswer)
+	public static int choice(String question, String[] choices, int rightAnswer)
 	{
 		Scanner sc = new Scanner(System.in);
 		int answer = 0;
@@ -160,63 +165,6 @@ public class Lib{
 		}
 	}
 	
-	// Funktion för att köra MySQL Querry, används inte
-	public static String[] LoadPokemon(int id)
-	{
-		Connection con = null;
-	    PreparedStatement pst = null;
-	    ResultSet rs = null;
-	    String[] Answers = new String[40];
-	        
-		String url = "jdbc:mysql://";
-        String user = "";
-        String password = "";
-        
-        try {
-            
-        	con = DriverManager.getConnection(url, user, password);
-        	pst = con.prepareStatement("SELECT * FROM Pokemons WHERE id =" + id);
-        	rs = pst.executeQuery();
-        	
-        	java.sql.ResultSetMetaData rsMetaData = rs.getMetaData();
-
-            int numberOfColumns = rsMetaData.getColumnCount();
-            System.out.println("Number of columns:" + numberOfColumns);
-        	while (rs.next()) {
-        		for(int i =1; i <= numberOfColumns; i++)
-        		{
-        			Answers[i] = rs.getString(i);
-        			//System.out.println(i);
-        			//System.out.println(rs.getString(i));
-        			//System.out.println(rsMetaData.getColumnType(i));
-        		}
-        	}
-        	
-        } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(Lib.class.getName());
-                lgr.log(Level.SEVERE, ex.getMessage(), ex);
-
-        } finally {
-
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pst != null) {
-                    pst.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(Lib.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
-            }
-        }
-        return Answers;
-	}
-	
 	// Funktion för att skicka POST-data till en hemsida, inte testad än.
 	public void doSubmit(String url, Map<String, String> data) throws Exception {
 		URL siteUrl = new URL(url);
@@ -247,5 +195,119 @@ public class Lib{
 			System.out.println(line);
 		}
 		in.close();
+	}
+	
+	// Loginfunktion
+	public static int Login(String username, String userpassword)
+	{
+		int id = 0;
+		
+		Connection con = null;
+	    PreparedStatement pst = null;
+	    ResultSet rs = null;
+	        
+		String url = "jdbc:mysql://server.snekabel.se/snekabel";
+        String user = "pok";
+        String password = "Pokemon1";
+        
+        try {
+            
+        	con = DriverManager.getConnection(url, user, password);
+        	pst = con.prepareStatement("SELECT id FROM users WHERE nickname = '" + username + "' AND password = '" + userpassword + "'");
+        	rs = pst.executeQuery();
+
+        	while (rs.next()) {
+        		id = rs.getInt(1);
+        	}
+        	
+        } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Lib.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Lib.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+		return id;
+	}
+	
+	// Funktion för att ladda en Pokémon från DB ägd av den trainer som loggat in
+	public static String[] LoadPokemon(int Trainer_id)
+	{
+		String[] stats = new String[8];
+		int pokemonid = 0;
+		String nickname = "";
+		
+		Connection con = null;
+	    PreparedStatement pst = null;
+	    ResultSet rs = null;
+        
+        try
+        {
+            
+        	con = DriverManager.getConnection(url, user, password);
+        	pst = con.prepareStatement("SELECT pokemonid,nickname,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE trainer = '" + Trainer_id + "'");
+        	rs = pst.executeQuery();
+        	
+        	while (rs.next())
+        	{
+        		stats[0] = rs.getString(1);
+        		stats[1] = rs.getString(2);
+        		stats[2] = rs.getString(3);
+        		stats[3] = rs.getString(4);
+        		stats[4] = rs.getString(5);
+        		stats[5] = rs.getString(6);
+        		stats[6] = rs.getString(7);
+        		stats[7] = rs.getString(8);
+        	}
+        	
+        }
+        catch (SQLException ex)
+        {
+                Logger lgr = Logger.getLogger(Lib.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+        }
+        finally
+        {
+
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (pst != null)
+                {
+                    pst.close();
+                }
+                if (con != null)
+                {
+                    con.close();
+                }
+
+            }
+            catch (SQLException ex)
+            {
+            	Logger lgr = Logger.getLogger(Lib.class.getName());
+            	lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+        return stats;
+		
 	}
 }

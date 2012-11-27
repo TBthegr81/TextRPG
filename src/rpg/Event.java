@@ -2,6 +2,10 @@ package rpg;
 
 public class Event {
 	
+	public static void event_triggers()
+	{
+	}
+	
 	public static void event_1(Pokemon pokemon[], Trainer trainer[])
 	{
 		Lib.writed("Oak: Hello and welcome to the world of Pokémon!\nMy name is professor Oak. But people just call me the Pokémon Professor!\nPokémon are the strange creatures that inhabitats this land. Some people uses them as pets and some even uses them to battle others!\n");
