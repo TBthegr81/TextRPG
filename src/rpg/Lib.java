@@ -245,12 +245,13 @@ public class Lib{
 		return id;
 	}
 	
-	// Funktion för att ladda en Pokémon från DB ägd av den trainer som loggat in
-	public static String[] LoadPokemon(int Trainer_id)
+	// Funktion för 		//ArrayList<Integer> pokemon = new ArrayList<Integer>();att ladda en Pokémon från DB ägd av den trainer som loggat in
+	public static void LoadPokemon(int Pokemon_id)
 	{
-		String[] stats = new String[8];
+		int[] stats = new int[5];
 		int pokemonid = 0;
 		String nickname = "";
+		int level = 0;
 		
 		Connection con = null;
 	    PreparedStatement pst = null;
@@ -260,23 +261,24 @@ public class Lib{
         {
             
         	con = DriverManager.getConnection(url, user, password);
-        	pst = con.prepareStatement("SELECT pokemonid,nickname,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE trainer = '" + Trainer_id + "'");
+        	pst = con.prepareStatement("SELECT pokemonid,nickname,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE id = '" + Pokemon_id + "'");
         	rs = pst.executeQuery();
         	
         	while (rs.next())
         	{
-        		stats[0] = rs.getString(1);
-        		stats[1] = rs.getString(2);
-        		stats[2] = rs.getString(3);
-        		stats[3] = rs.getString(4);
-        		stats[4] = rs.getString(5);
-        		stats[5] = rs.getString(6);
-        		stats[6] = rs.getString(7);
-        		stats[7] = rs.getString(8);
+        		pokemonid = rs.getInt(1);
+        		nickname 	= rs.getString(2);
+        		stats[0] 	= rs.getInt(3);
+        		stats[1] 	= rs.getInt(4);
+        		stats[2] 	= rs.getInt(5);
+        		stats[3] 	= rs.getInt(6);
+        		stats[4] 	= rs.getInt(7);
+        		level 		= rs.getInt(8);
         	}
         	
-        }
+        }        
         catch (SQLException ex)
+        
         {
                 Logger lgr = Logger.getLogger(Lib.class.getName());
                 lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -307,7 +309,151 @@ public class Lib{
             	lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-        return stats;
+        if(pokemonid != 0 && nickname != null && level > 0)
+        {
+        	try {
+    			RPG.pokemon.add(new Pokemon(pokemonid,nickname,level,0));
+    		} catch (Fail e) {
+    			e.printStackTrace();
+    		}
+        }
 		
+	}
+	
+	// Funktion för att ladda en Tränares data från DB
+	public static void LoadTrainer(int Trainer_id)
+		{
+			String nickname = "";
+			int type = 0;
+			Connection con = null;
+		    PreparedStatement pst = null;
+		    ResultSet rs = null;
+	        
+	        try
+	        {
+	            
+	        	con = DriverManager.getConnection(url, user, password);
+	        	pst = con.prepareStatement("SELECT nick,type FROM Trainers WHERE trainers_id = '" + Trainer_id + "'");
+	        	rs = pst.executeQuery();
+	        	
+	        	while (rs.next())
+	        	{
+	        		nickname = rs.getString(1);
+	        		type = rs.getInt(2);
+	        	}
+	        	
+	        }        
+	        catch (SQLException ex)
+	        
+	        {
+	                Logger lgr = Logger.getLogger(Lib.class.getName());
+	                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+	        }
+	        finally
+	        {
+
+	            try
+	            {
+	                if (rs != null)
+	                {
+	                    rs.close();
+	                }
+	                if (pst != null)
+	                {
+	                    pst.close();
+	                }
+	                if (con != null)
+	                {
+	                    con.close();
+	                }
+
+	            }
+	            catch (SQLException ex)
+	            {
+	            	Logger lgr = Logger.getLogger(Lib.class.getName());
+	            	lgr.log(Level.WARNING, ex.getMessage(), ex);
+	            }
+	        }
+	        if(nickname != null)
+	        {
+	        	RPG.trainer.add(new Trainer(nickname, type, RPG.pokemon));
+	        	Lib.write("yay");
+	        }
+			
+		}
+	
+	// Funktion för att ladda lista med Pokémon en tränare äger
+	public static void LoadPokemonList(int Trainer_id)
+	{
+		//ArrayList<Integer> pokemon = new ArrayList<Integer>();
+		Connection con = null;
+	    PreparedStatement pst = null;
+	    ResultSet rs = null;
+        
+        try
+        {
+            
+        	con = DriverManager.getConnection(url, user, password);
+        	pst = con.prepareStatement("SELECT pokemonid,nickname,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE trainer = '" + Trainer_id + "'");
+        	rs = pst.executeQuery();
+        	while (rs.next())
+        	{
+                try {
+            		RPG.pokemon.add(new Pokemon(rs.getInt(1),rs.getString(2),rs.getInt(8),0));
+            	} catch (Fail e) {
+            		e.printStackTrace();
+            	}
+        	}
+        	
+        }        
+        catch (SQLException ex)
+        
+        {
+                Logger lgr = Logger.getLogger(Lib.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        finally
+        {
+
+            try
+            {
+                if (rs != null)
+                {
+                    rs.close();
+                }
+                if (pst != null)
+                {
+                    pst.close();
+                }
+                if (con != null)
+                {
+                    con.close();
+                }
+
+            }
+            catch (SQLException ex)
+            {
+            	Logger lgr = Logger.getLogger(Lib.class.getName());
+            	lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+		//return pokemon;
+	}
+	        
+	// Funktion för att ladda in spel
+	public static void LoadGame(int Trainer_id)
+	{
+		Lib.LoadTrainer(Trainer_id);
+		Lib.LoadPokemonList(Trainer_id);
+		
+		//RPG.trainer[0] = new Trainer(RPG.username,0, RPG.pokemon);
+		Lib.LoadTrainer(3);
+		Lib.LoadPokemonList(3);
+		
+		//RPG.trainer[1] = new Trainer("Dick",1, RPG.pokemon);
+		RPG.pokemon.get(0).showInfo();
+		RPG.pokemon.get(1).showInfo();
+		Battle.battle(0,1,0);
 	}
 }

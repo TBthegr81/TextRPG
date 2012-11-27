@@ -1,23 +1,22 @@
 package rpg;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Battle {
 
-	public static void battle(int player1, int player2, Trainer tr[], int type, Pokemon pk[])
+	public static void battle(int player1, int player2, int type)
 	{
 		Scanner sc = new Scanner(System.in);
 		Screen s = new Screen();
-		ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>(Arrays.asList(pk));
+		//ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>(Arrays.asList(pk));
 		
 		int battletype=type;
 		int rounds = 0;
-		System.out.println("New Battle!\n"+ tr[player1].returnname() + " VS " + tr[player2].returnname());
+		System.out.println("New Battle!\n"+ RPG.trainer.get(0).returnname() + " VS " + RPG.trainer.get(1).returnname());
 		boolean battle = true;
 		while(battle){
-			s.drawWorld(pokemon);
+			s.drawWorld(RPG.pokemon);
 			rounds++;
 			System.out.println("\nRound: " + rounds);
 			// Alternativen man har i början av sin runda. Fight låter en attackera
@@ -32,14 +31,14 @@ public class Battle {
 				case 1: System.out.println("Your attacks:");
 				for(int i = 0; i < 4; i++)
 				{
-					if(pk[0].getAttacks(i) != null)
+					if(RPG.pokemon.get(0).getAttacks(i) != null)
 					{
-						System.out.print("[" + i + "]" + pk[0].getAttacks(i));
+						System.out.print("[" + i + "]" + RPG.pokemon.get(0).getAttacks(i));
 					}
 				}
 				int attack = sc.nextInt();
 				// Kallar på funktionen som ska skada motståndaren
-				damage(pk, attack);
+				damage(RPG.pokemon, attack);
 				break;
 				// Listar de items man har. Kommer sen när databas funkar bättre
 				case 2: System.out.println("You dont have any items");
@@ -65,12 +64,12 @@ public class Battle {
 	}
 	
 	// Funktion som ska skada motståndaren
-	private static void damage(Pokemon pk[], int attack)
+	private static void damage(ArrayList<Pokemon> pk, int attack)
 	{
-		System.out.println( pk[0].getName() + " attacks " + pk[1].getName() + " with " + pk[1].getAttacks(attack));
+		System.out.println( pk.get(0).getName() + " attacks " + pk.get(1).getName() + " with " + pk.get(1).getAttacks(attack));
 		// Försöker räkna ut damage baserat på stats. Attackerande pokemonen attack gånger 2 delat i försvarande
 		// Pokémons defense
-		int damage = pk[0].getStats()[1] * 2 / pk[1].getStats()[2];
+		int damage = pk.get(0).getStats()[1] * 2 / pk.get(1).getStats()[2];
 		if(damage <= 0)
 		{
 			damage = 1;

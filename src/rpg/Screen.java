@@ -128,13 +128,12 @@ public class Screen extends JFrame {
 	}
 	
 	private void drawBackground() {
-		boolean isDay = false;
+		boolean isDay = true;
+		//Calendar calendar = new GregorianCalendar();
 		
-		Calendar calendar = new GregorianCalendar();
+		//int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		
-		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		
-		if (hours > 6 && hours < 18) {
+		/*if (hours > 6 && hours < 18) {
 			isDay = true;
 		}
 		
@@ -146,7 +145,7 @@ public class Screen extends JFrame {
 			textColor = Color.WHITE;
 			skyColor = Color.BLACK;
 			groundColor = Color.DARK_GRAY;
-		}
+		}*/
 		
 	}
 	

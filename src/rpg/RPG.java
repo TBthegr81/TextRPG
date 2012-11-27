@@ -1,11 +1,16 @@
 package rpg;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class RPG
 {
-	static Pokemon pokemon[] = new Pokemon[5];
-	static Trainer trainer[] = new Trainer[2];
+	//public static Pokemon pokemon[] = new Pokemon[5];
+	public static ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
+	//public static Trainer trainer[] = new Trainer[2];
+	public static ArrayList<Trainer> trainer = new ArrayList<Trainer>();
+	public static String username = "";
+	public static int Trainer_id = 0;
 	
 	public static void main(String [ ] args)
 	{
@@ -13,8 +18,7 @@ public class RPG
 		Scanner sc = new Scanner(System.in);
 		// Ger inloggningsruta
 		boolean notloggedin = true;
-		int Trainer_id = 0;
-		String username = "";
+		
 		while(notloggedin)
 		{
 			username = Lib.input("Username:");
@@ -46,15 +50,11 @@ public class RPG
 		}
 		else if(choice == 1)
 		{
-			// Globala variabler
-			Pokemon pokemon[] = new Pokemon[5];
-			Trainer trainer[] = new Trainer[2];
-			
 			// Kallar på event 0 vid new-game, välkomsteventet med Oak som ger player en introduktion av världen.
 			Event.event_1(pokemon, trainer);
 			
 			// Här börjar första striden
-			Battle.battle(0,1, trainer,0,pokemon);
+			Battle.battle(0,1,0);
 			
 			// Här är striden slut och man kan välja vad man själv ska göras. Denna kod ska outsourcas till Lib sen.
 			command = Lib.input("");
@@ -65,7 +65,7 @@ public class RPG
 				{
 					try{
 					int u = Integer.parseInt(commanda[1]);
-					trainer[u].showInfo(u);
+					trainer.get(u).showInfo(u);
 					}
 					catch(Exception ex){System.out.println("U need Int noob");}
 				}
@@ -74,7 +74,7 @@ public class RPG
 				{
 					try{
 					int u = Integer.parseInt(commanda[1]);
-					pokemon[u].showInfo();
+					pokemon.get(u).showInfo();
 					}
 					catch(Exception ex){System.out.println("U need Int noob");}
 				}
@@ -83,7 +83,7 @@ public class RPG
 					try{
 					int u = Integer.parseInt(commanda[1]);
 					int x = Integer.parseInt(commanda[2]);
-					Battle.battle(u,x, trainer, 1, pokemon);
+					Battle.battle(u,x,1);
 					}
 					catch(Exception ex){System.out.println("U need Int noob");}
 				}
@@ -91,27 +91,7 @@ public class RPG
 		}
 		else if(choice == 2)
 		{	
-			Lib.LoadPokemon(Trainer_id);
-			String[] poke = Lib.LoadPokemon(Trainer_id);
-			int pokemonid = Integer.parseInt(poke[0]);
-			String nickname = poke[1];
-			int level = Integer.parseInt(poke[7]);
-			try {
-				pokemon[0] = new Pokemon(pokemonid,nickname,level,0);
-			} catch (Fail e) {
-				e.printStackTrace();
-			}
-			trainer[0] = new Trainer(username,0, pokemon);
-			
-			try {
-				pokemon[1] = new Pokemon(4,"AssPoke",5,1);
-			} catch (Fail e) {
-				e.printStackTrace();
-			}
-			trainer[1] = new Trainer("Dick",1, pokemon);
-			pokemon[0].showInfo();
-			Battle.battle(0,1, trainer,0,pokemon);
-			
+			Lib.LoadGame(Trainer_id);
 		}
 		
 		else if(choice == 4)
