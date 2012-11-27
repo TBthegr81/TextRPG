@@ -246,7 +246,7 @@ public class Lib{
 	}
 	
 	// Funktion för 		//ArrayList<Integer> pokemon = new ArrayList<Integer>();att ladda en Pokémon från DB ägd av den trainer som loggat in
-	public static void LoadPokemon(int Pokemon_id)
+	/*public static void LoadPokemon(int Pokemon_id)
 	{
 		int[] stats = new int[5];
 		int pokemonid = 0;
@@ -318,13 +318,14 @@ public class Lib{
     		}
         }
 		
-	}
+	}*/
 	
 	// Funktion för att ladda en Tränares data från DB
-	public static void LoadTrainer(int Trainer_id)
+	public static int LoadTrainer(int Trainer_id)
 		{
 			String nickname = "";
 			int type = 0;
+			int size = 0;
 			Connection con = null;
 		    PreparedStatement pst = null;
 		    ResultSet rs = null;
@@ -377,9 +378,11 @@ public class Lib{
 	        }
 	        if(nickname != null)
 	        {
-	        	RPG.trainer.add(new Trainer(nickname, type, RPG.pokemon));
+	        	RPG.trainer.add(new Trainer(Trainer_id, nickname, type));
 	        	Lib.write("yay");
+	        	size = RPG.trainer.size() -1;
 	        }
+			return size;
 			
 		}
 	
@@ -395,12 +398,13 @@ public class Lib{
         {
             
         	con = DriverManager.getConnection(url, user, password);
-        	pst = con.prepareStatement("SELECT pokemonid,nickname,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE trainer = '" + Trainer_id + "'");
+        	pst = con.prepareStatement("SELECT pokemonid,nickname,hp,attack,defense,spatt,spdef,speed,level FROM Pokemons WHERE trainer = '" + Trainer_id + "'");
         	rs = pst.executeQuery();
         	while (rs.next())
-        	{
+        	{   	
                 try {
-            		RPG.pokemon.add(new Pokemon(rs.getInt(1),rs.getString(2),rs.getInt(8),0));
+                	int tid = RPG.trainer.size() -1;
+            		RPG.trainer.get(tid).pokemon.add(new Pokemon(rs.getInt("pokemonid"),rs.getString("nickname"),rs.getInt("level"),0, new int[]{rs.getInt("hp"),rs.getInt("attack"),rs.getInt("defense"),rs.getInt("spatt"),rs.getInt("spdef"),rs.getInt("speed")}));
             	} catch (Fail e) {
             		e.printStackTrace();
             	}
@@ -438,7 +442,6 @@ public class Lib{
             	lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-		//return pokemon;
 	}
 	        
 	// Funktion för att ladda in spel
@@ -446,14 +449,13 @@ public class Lib{
 	{
 		Lib.LoadTrainer(Trainer_id);
 		Lib.LoadPokemonList(Trainer_id);
+		RPG.pokemon.clear();
 		
 		//RPG.trainer[0] = new Trainer(RPG.username,0, RPG.pokemon);
 		Lib.LoadTrainer(3);
 		Lib.LoadPokemonList(3);
 		
 		//RPG.trainer[1] = new Trainer("Dick",1, RPG.pokemon);
-		RPG.pokemon.get(0).showInfo();
-		RPG.pokemon.get(1).showInfo();
 		Battle.battle(0,1,0);
 	}
 }

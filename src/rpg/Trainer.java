@@ -4,18 +4,17 @@ import java.util.ArrayList;
 
 public class Trainer {
 private String name;
-@SuppressWarnings("unused")
-private String pkmnname;
 private int type;
+private int dbId;
 //private Pokemon pokemons[]= new Pokemon[100];
-private ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
+public ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
 //private Item bag[]= new Item[100];
 
 	//Trainer(){}
-	Trainer(String inName, int inType, ArrayList<Pokemon> inPokemons){
+	Trainer(int inid, String inName, int inType){
+		dbId = inid;
 		name = inName;
 		type = inType;
-		pokemon = inPokemons;
 	}
 	public void showInfo(int trainernr){
 		System.out.println(name + "\ntype: "+type + "\nPokemons: ");

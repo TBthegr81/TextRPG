@@ -16,7 +16,7 @@ public class Battle {
 		System.out.println("New Battle!\n"+ RPG.trainer.get(0).returnname() + " VS " + RPG.trainer.get(1).returnname());
 		boolean battle = true;
 		while(battle){
-			s.drawWorld(RPG.pokemon);
+			s.drawWorld();
 			rounds++;
 			System.out.println("\nRound: " + rounds);
 			// Alternativen man har i början av sin runda. Fight låter en attackera

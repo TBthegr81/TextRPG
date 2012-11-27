@@ -42,11 +42,11 @@ public class Event {
 		
 		// Här skapas äntligen Pokémon och Trainerobjekten
 		try {
-			pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0));
+			pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0,new int[5]));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}
-		trainer.add(new Trainer(playername,0, pokemon));
+		trainer.add(new Trainer(0,playername,0));
 		
 		// Printa de stats och info som sattes när Pokémonen skapades
 		System.out.println("Your new Pokémon:\n");
@@ -67,11 +67,11 @@ public class Event {
 		else if(trainerpokemon==2) rp = 3;
 		else if(trainerpokemon==3) rp = 1;
 		try {
-			pokemon.add(new Pokemon(rp,"AssPoke",5,1));
+			pokemon.add(new Pokemon(rp,"AssPoke",5,1,new int[5]));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}
-		trainer.add(new Trainer(rivalname,1, pokemon));
+		trainer.add(new Trainer(0,rivalname,1));
 		
 	}
 	

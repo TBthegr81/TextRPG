@@ -1,14 +1,11 @@
 package rpg;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,9 +13,7 @@ import javax.swing.JFrame;
 
 public class Screen extends JFrame {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private final static int HEIGHT = 200;
 	private final static int WIDTH = 300;
@@ -28,7 +23,9 @@ public class Screen extends JFrame {
 	private Color groundColor = Color.GREEN;
 	private Color textColor = Color.BLACK;
 	private final static int hpperecent = 80;
- 	private ArrayList<Pokemon> pokemon;
+ 	//private ArrayList<Pokemon> pokemon;
+ 	Pokemon a = RPG.trainer.get(0).pokemon.get(0);
+	Pokemon b = RPG.trainer.get(1).pokemon.get(0);
 	
 	public Screen() {
 		init();
@@ -45,19 +42,19 @@ public class Screen extends JFrame {
 	    setAlwaysOnTop(false);
 	}
 	
-	private ArrayList<Image> getImages(Pokemon a, Pokemon b) {
+	private ArrayList<Image> getImages() {
 		ArrayList<Image> images = new ArrayList<Image>();
 		// body
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(a.getPkmnNr() + ".png"));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("images/backsprites/" + a.getPkmnNr() + ".png"));
 		images.add(ii.getImage());
 		// head
-		ImageIcon ii2 = new ImageIcon(this.getClass().getResource(b.getPkmnNr() + ".png"));
+		ImageIcon ii2 = new ImageIcon(this.getClass().getResource("images/frontsprites/" +  b.getPkmnNr() + ".png"));
 		images.add(ii2.getImage());
 		
-		ImageIcon ii3 = new ImageIcon(this.getClass().getResource("enemyhpbar.png"));
+		ImageIcon ii3 = new ImageIcon(this.getClass().getResource("images/enemyhpbar.png"));
 		images.add(ii3.getImage());
 		
-		ImageIcon ii4 = new ImageIcon(this.getClass().getResource("playerhpbar.png"));
+		ImageIcon ii4 = new ImageIcon(this.getClass().getResource("images/playerhpbar.png"));
 		images.add(ii4.getImage());
 		
 		return images;
@@ -73,16 +70,14 @@ public class Screen extends JFrame {
 		g2.fillRect(0, HEIGHT/2, WIDTH, HEIGHT/2);
 		
 		// GUI
-		Button button1 = new Button("Button One");
+		//Button button1 = new Button("Button One");
 		
 		
-		if (pokemon != null) {
+		if (a != null) {
 			// Draw playerpoke
 			int x = 10;
 			int y = 110;
-			Pokemon a = pokemon.get(0);
-			Pokemon b = pokemon.get(1);
-			ArrayList<Image> images = getImages(a,b);
+			ArrayList<Image> images = getImages();
 			
 			g2.drawImage(images.get(0), x, y, this);
 			
@@ -121,19 +116,18 @@ public class Screen extends JFrame {
 		}
 	}
 	
-	public void drawWorld(ArrayList<Pokemon> pokemon) {
-		this.pokemon = pokemon;
-		drawBackground();
+	public void drawWorld() {
+		//drawBackground();
 		repaint();
 	}
 	
-	private void drawBackground() {
+	/*private void drawBackground() {
 		boolean isDay = true;
 		//Calendar calendar = new GregorianCalendar();
 		
 		//int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		
-		/*if (hours > 6 && hours < 18) {
+		if (hours > 6 && hours < 18) {
 			isDay = true;
 		}
 		
@@ -145,9 +139,9 @@ public class Screen extends JFrame {
 			textColor = Color.WHITE;
 			skyColor = Color.BLACK;
 			groundColor = Color.DARK_GRAY;
-		}*/
+		}
 		
-	}
+	}*/
 	
 	public static void WriteText(Graphics2D g2, int x, int y, String text, Color textColor)
 	{
