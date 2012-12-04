@@ -14,15 +14,15 @@ public class RPG
 	
 	public static void main(String [ ] args)
 	{
-		String command;
 		Scanner sc = new Scanner(System.in);
 		// Ger inloggningsruta
 		boolean notloggedin = true;
 		
 		while(notloggedin)
 		{
-			username = Lib.input("Username:");
-			String password = Lib.md5(Lib.input("Password:"));
+			String[] details = Lib.loginPopup();
+			String username = details[0];
+			String password = Lib.md5(details[1]);
 			Trainer_id = Lib.Login(username,password);
 			if(Trainer_id < 1)
 			{
@@ -62,10 +62,10 @@ public class RPG
 		{
 			Lib.write("Sry, no options yet!");
 		}
-		
+		sc.close();
 		while(true)
 		{
-			Event_check.check();
+			//Event_check.check();
 			Lib.command();
 		}
 	}

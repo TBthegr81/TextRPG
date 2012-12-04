@@ -21,6 +21,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 public class Lib{
 	static String url = "jdbc:mysql://server.snekabel.se/pokemonrpg2";
     static String user = "pok";
@@ -103,6 +108,7 @@ public class Lib{
 				break;
 			}
 		}
+		sc.close();
 		return answer;
 	}
 	
@@ -135,6 +141,7 @@ public class Lib{
 			}
 			// Skriver man något annat än yes,y,no,n så får man skriva om
 		}
+		sc.close();
 		return answer;
 	}
 	
@@ -143,9 +150,30 @@ public class Lib{
 	{
 		Lib.writed("\n" + Question);
 		System.out.print(">");
-		Scanner  sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		String text = sc.nextLine();
+		sc.close();
 		return text;
+	}
+	// Passwordfält med maskade bokstäver
+	public static String[] loginPopup()
+	{
+		String username = "";
+		char[] pass_char = null;
+		JLabel userLabel = new JLabel("Username:");
+		JTextField user = new JTextField(15);
+		
+		JLabel pwdLabel = new JLabel("Password");
+		JPasswordField pwd = new JPasswordField(10);
+		pwd.setEchoChar('*');
+		
+		Object[] fields = {userLabel, user, pwdLabel, pwd};
+	    int button = JOptionPane.showConfirmDialog(null, fields, "Login",JOptionPane.OK_CANCEL_OPTION);
+	    if (button == JOptionPane.CANCEL_OPTION || button == JOptionPane.CLOSED_OPTION) System.exit(1);
+	    pass_char = pwd.getPassword();
+	    username = user.getText();
+	    
+		return new String[] {username, new String(pass_char)};
 	}
 	
 	// Ska vidareutvecklas, men idéen är typ att alla strider, folk som pratar med player och liknande ska vara events

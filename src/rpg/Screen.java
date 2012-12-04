@@ -2,7 +2,6 @@ package rpg;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -54,7 +53,6 @@ public class Screen extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		Container workingArea = getContentPane();
 		//workingArea.setBackground(healthColor);
 		//workingArea.add(panel, BorderLayout.CENTER);
 		contentPane.add(panel, BorderLayout.SOUTH);

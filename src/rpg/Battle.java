@@ -1,6 +1,5 @@
 package rpg;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Battle {
@@ -53,6 +52,7 @@ public class Battle {
 			}
 
 		}
+		sc.close();
 	}
 	
 	// Funktion som ska skada motståndaren

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 public class Trainer {
 private String name;
 private int type;
-private int dbId;
 //private Pokemon pokemons[]= new Pokemon[100];
 public ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
 //private Item bag[]= new Item[100];
 
 	//Trainer(){}
 	Trainer(int inid, String inName, int inType){
-		dbId = inid;
 		name = inName;
 		type = inType;
 	}
