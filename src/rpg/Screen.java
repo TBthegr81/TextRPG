@@ -1,19 +1,30 @@
 package rpg;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 
 public class Screen extends JFrame {
 	
-
+	public static 	JPanel contentPane;
+	public static 	JTextPane textPane1;
+	public static 	JButton buttons[] = new JButton[16];
+	public final 	JPanel panel = new JPanel();
+	
 	private static final long serialVersionUID = 1L;
 	private final static int HEIGHT = 200;
 	private final static int WIDTH = 300;
@@ -28,18 +39,41 @@ public class Screen extends JFrame {
 	Pokemon b = RPG.trainer.get(1).pokemon.get(0);
 	
 	public Screen() {
-		init();
-	}
-	
-	
-	private void init() {
-		setTitle("Battle");
-		setSize(WIDTH, HEIGHT+100);
-		setResizable(false);
-		setLocationRelativeTo(null);
-	    setDefaultCloseOperation(EXIT_ON_CLOSE);
-	    setVisible(true);
+		
+		setVisible(true);
+		setTitle("Pokemon Battle");
+		setSize(WIDTH,HEIGHT);
+		setResizable(true);
+		setVisible(true);
 	    setAlwaysOnTop(false);
+		setLocation(100,200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 0, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		Container workingArea = getContentPane();
+		//workingArea.setBackground(healthColor);
+		//workingArea.add(panel, BorderLayout.CENTER);
+		contentPane.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		buttons[0] = new JButton("[FIGHT]");
+		buttons[1] = new JButton("[ITEM]");
+		buttons[2] = new JButton("[PKMN]");
+		buttons[3] = new JButton("[RUN]");
+		
+		panel.add(buttons[0]);
+		//buttons[0].addActionListener(new do1());
+		panel.add(buttons[1]);
+		//buttons[1].addActionListener(new do1());
+		panel.add(buttons[2]);
+		//buttons[2].addActionListener(new do1());
+		panel.add(buttons[3]);
+		//buttons[3].addActionListener(new do1());
+		repaint();
 	}
 	
 	private ArrayList<Image> getImages() {

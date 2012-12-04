@@ -452,8 +452,8 @@ public class Lib{
 		RPG.pokemon.clear();
 		
 		//RPG.trainer[0] = new Trainer(RPG.username,0, RPG.pokemon);
-		Lib.LoadTrainer(3);
-		Lib.LoadPokemonList(3);
+		Lib.LoadTrainer(100);
+		Lib.LoadPokemonList(100);
 		
 		//RPG.trainer[1] = new Trainer("Dick",1, RPG.pokemon);
 		Battle.battle(0,1,0);
