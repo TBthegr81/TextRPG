@@ -80,7 +80,8 @@ public class Lib{
 		boolean notfail = true;
 		for(int i = 0; i < choices.length; i++)
 		{
-			// Skapar ett val för varje inlägg i Arrayen med tillhörande siffra
+			// Skapar ett val för varje inlägg i Arrayen med tillhörande siffra om valet inte är null
+			if(choices[i] != null)
 			System.out.println("[" + (i+1) + "]" + choices[i]);
 		}
 		// Sålänge man skriver svar som inte godtas kommer loopen köras om
@@ -457,5 +458,41 @@ public class Lib{
 		
 		//RPG.trainer[1] = new Trainer("Dick",1, RPG.pokemon);
 		Battle.battle(0,1,0);
+	}
+	
+	public static void command()
+	{
+		String command;
+		command = Lib.input("");
+		while(!(command).equals("exit")){
+			String commanda[] = new String[10];
+			commanda = command.split(" ");
+			if(commanda[0].equals("trainer_info"))
+			{
+				try{
+				int u = Integer.parseInt(commanda[1]);
+				RPG.trainer.get(u).showInfo(u);
+				}
+				catch(Exception ex){System.out.println("U need Int noob");}
+			}
+			
+			if(commanda[0].equals("pokemon_info"))
+			{
+				try{
+				int u = Integer.parseInt(commanda[1]);
+				RPG.pokemon.get(u).showInfo();
+				}
+				catch(Exception ex){System.out.println("U need Int noob");}
+			}
+			if(commanda[0].equals("battle"))
+			{
+				try{
+				int u = Integer.parseInt(commanda[1]);
+				int x = Integer.parseInt(commanda[2]);
+				Battle.battle(u,x,1);
+				}
+				catch(Exception ex){System.out.println("U need Int noob");}
+			}
+		}
 	}
 }

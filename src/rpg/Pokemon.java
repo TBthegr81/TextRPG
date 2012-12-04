@@ -57,9 +57,14 @@ private String attacks[] = new String[4];
 	}
 	
 	// Ger tillbaka array med attacker
-	public String getAttacks(int id){
-		return attacks[id];
+	public String[] getAttacks(){
+		return attacks;
 	}
+	
+	// Ger tillbaka namnet på en attack via dess id
+		public String getAttack(int id){
+			return attacks[id];
+		}
 	
 	// Ska plussa på XP, gör det inte än.
 	public void xpgain(int gainedxp) {

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Event {
 	
-	public static void event_triggers()
-	{
-	}
-	
 	public static void event_1(ArrayList<Pokemon> pokemon, ArrayList<Trainer> trainer)
 	{
 		Lib.writed("Oak: Hello and welcome to the world of Pokémon!\nMy name is professor Oak. But people just call me the Pokémon Professor!\nPokémon are the strange creatures that inhabitats this land. Some people uses them as pets and some even uses them to battle others!\n");
@@ -23,13 +19,16 @@ public class Event {
 		switch(trainerpokemon)
 		{
 		case 1: System.out.println("You choose Bulbasaur\n");
+		trainerpokemon = 1;
 		trainerpokemonname = "Bulbasaur";
 		break;
 		case 2: System.out.println("You choose Charmander\n");
 		trainerpokemonname = "Charmander";
+		trainerpokemon = 4;
 		break;
 		case 3:	System.out.println("You choose  Squirtle\n");
 		trainerpokemonname = "Squirtle";
+		trainerpokemon = 7;
 		break;
 		}
 		
@@ -41,38 +40,41 @@ public class Event {
 		}
 		
 		// Här skapas äntligen Pokémon och Trainerobjekten
+		trainer.add(new Trainer(0,playername,0));
 		try {
-			pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0,new int[5]));
+			RPG.trainer.get(0).pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0,new int[]{0,0,0,0,0,0}));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}
-		trainer.add(new Trainer(0,playername,0));
 		
 		// Printa de stats och info som sattes när Pokémonen skapades
 		System.out.println("Your new Pokémon:\n");
 		//System.out.println(Lib.LoadPokemon(10)[5]);
-		pokemon.get(0).showInfo();
+		RPG.trainer.get(0).pokemon.get(0).showInfo();
 		
 		// Välj namn för din rival
 		String rivalname = Lib.input("Oak: Now this is my grandson. He have been your rival ever since you where embryos. Now what was his name again?");
 		
 		// Rivalen börjar med att utmana en för ens första strid
 		Lib.writed("Oak: Oh i remember now! His name is "  + rivalname + "!");
+		Lib.writed(rivalname + ": But grandpa!! Why dont you remember my name??");
 		Lib.writed(rivalname + ": So, " + playername + " you wanna test this Pokémon out? Lets battle!");
 		int rp=0;
 		
 		// Precis innan Battle-funktionen kallas så skapas rivalen och hans Pokémon.
 		// Hans Pokémon bestäms av vad player valde så de inte kan ha samma.
-		if(trainerpokemon==1) rp = 2;
-		else if(trainerpokemon==2) rp = 3;
-		else if(trainerpokemon==3) rp = 1;
+		trainer.add(new Trainer(0,rivalname,1));
+		if(trainerpokemon==1) rp = 4;
+		else if(trainerpokemon==4) rp = 7;
+		else if(trainerpokemon==7) rp = 1;
 		try {
-			pokemon.add(new Pokemon(rp,"AssPoke",5,1,new int[5]));
+			RPG.trainer.get(1).pokemon.add(new Pokemon(rp,"Asspoke",5,1,new int[]{0,0,0,0,0,0}));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}
-		trainer.add(new Trainer(0,rivalname,1));
 		
+		// Här börjar första striden
+		Battle.battle(0,1,0);
 	}
 	
 	public static void event_2()

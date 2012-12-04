@@ -28,17 +28,9 @@ public class Battle {
 			switch(command)
 			{
 				// Listar de Attackerna man har
-				case 1: System.out.println("Your attacks:");
-				for(int i = 0; i < 4; i++)
-				{
-					if(RPG.pokemon.get(0).getAttacks(i) != null)
-					{
-						System.out.print("[" + i + "]" + RPG.pokemon.get(0).getAttacks(i));
-					}
-				}
-				int attack = sc.nextInt();
+				case 1: int attack = Lib.choice("Your attacks:", RPG.trainer.get(0).pokemon.get(0).getAttacks(), 0);
 				// Kallar på funktionen som ska skada motståndaren
-				damage(RPG.pokemon, attack);
+				damage(attack);
 				break;
 				// Listar de items man har. Kommer sen när databas funkar bättre
 				case 2: System.out.println("You dont have any items");
@@ -64,12 +56,12 @@ public class Battle {
 	}
 	
 	// Funktion som ska skada motståndaren
-	private static void damage(ArrayList<Pokemon> pk, int attack)
+	private static void damage(int attack)
 	{
-		System.out.println( pk.get(0).getName() + " attacks " + pk.get(1).getName() + " with " + pk.get(1).getAttacks(attack));
+		System.out.println(RPG.trainer.get(0).pokemon.get(0).getName() + " attacks " + RPG.trainer.get(1).pokemon.get(0).getName() + " with " + RPG.trainer.get(0).pokemon.get(0).getAttack(attack));
 		// Försöker räkna ut damage baserat på stats. Attackerande pokemonen attack gånger 2 delat i försvarande
 		// Pokémons defense
-		int damage = pk.get(0).getStats()[1] * 2 / pk.get(1).getStats()[2];
+		int damage = RPG.trainer.get(0).pokemon.get(0).getStats()[1] * 2 / RPG.trainer.get(1).pokemon.get(0).getStats()[2];
 		if(damage <= 0)
 		{
 			damage = 1;

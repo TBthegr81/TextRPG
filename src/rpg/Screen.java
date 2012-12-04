@@ -43,7 +43,7 @@ public class Screen extends JFrame {
 		setVisible(true);
 		setTitle("Pokemon Battle");
 		setSize(WIDTH,HEIGHT);
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
 	    setAlwaysOnTop(false);
 		setLocation(100,200);
