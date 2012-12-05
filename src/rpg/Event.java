@@ -9,7 +9,8 @@ public class Event {
 		Lib.writed("Oak: Hello and welcome to the world of Pokémon!\nMy name is professor Oak. But people just call me the Pokémon Professor!\nPokémon are the strange creatures that inhabitats this land. Some people uses them as pets and some even uses them to battle others!\n");
 		
 		// Inputa player-name
-		String playername = Lib.input("But first, what is your name?");
+		String playername = "";
+		playername = Lib.input("But first, what is your name?");
 		
 		// Välj din första Pokémon
 		int trainerpokemon = 0;

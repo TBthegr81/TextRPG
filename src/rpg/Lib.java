@@ -108,7 +108,6 @@ public class Lib{
 				break;
 			}
 		}
-		sc.close();
 		return answer;
 	}
 	
@@ -141,7 +140,6 @@ public class Lib{
 			}
 			// Skriver man något annat än yes,y,no,n så får man skriva om
 		}
-		sc.close();
 		return answer;
 	}
 	
@@ -149,10 +147,10 @@ public class Lib{
 	public static String input(String Question)
 	{
 		Lib.writed("\n" + Question);
+		String text = "";
 		System.out.print(">");
 		Scanner sc = new Scanner(System.in);
-		String text = sc.nextLine();
-		sc.close();
+		text = sc.nextLine();
 		return text;
 	}
 	// Passwordfält med maskade bokstäver

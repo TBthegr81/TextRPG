@@ -1,7 +1,6 @@
 package rpg;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class RPG
 {
@@ -14,15 +13,14 @@ public class RPG
 	
 	public static void main(String [ ] args)
 	{
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		// Ger inloggningsruta
 		boolean notloggedin = true;
 		
 		while(notloggedin)
 		{
-			String[] details = Lib.loginPopup();
-			String username = details[0];
-			String password = Lib.md5(details[1]);
+			String username = Lib.input("Username");
+			String password = Lib.md5(Lib.input("Password"));
 			Trainer_id = Lib.Login(username,password);
 			if(Trainer_id < 1)
 			{
@@ -62,7 +60,6 @@ public class RPG
 		{
 			Lib.write("Sry, no options yet!");
 		}
-		sc.close();
 		while(true)
 		{
 			//Event_check.check();
