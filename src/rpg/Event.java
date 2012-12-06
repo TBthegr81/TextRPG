@@ -43,7 +43,7 @@ public class Event {
 		// Här skapas äntligen Pokémon och Trainerobjekten
 		trainer.add(new Trainer(0,playername,0));
 		try {
-			RPG.trainer.get(0).pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0,new int[]{0,0,0,0,0,0}));
+			Main.trainer.get(0).pokemon.add(new Pokemon(trainerpokemon,trainerpokemonname,5,0,new int[]{0,0,0,0,0,0}));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class Event {
 		// Printa de stats och info som sattes när Pokémonen skapades
 		System.out.println("Your new Pokémon:\n");
 		//System.out.println(Lib.LoadPokemon(10)[5]);
-		RPG.trainer.get(0).pokemon.get(0).showInfo();
+		Main.trainer.get(0).pokemon.get(0).showInfo();
 		
 		// Välj namn för din rival
 		String rivalname = Lib.input("Oak: Now this is my grandson. He have been your rival ever since you where embryos. Now what was his name again?");
@@ -69,7 +69,7 @@ public class Event {
 		else if(trainerpokemon==4) rp = 7;
 		else if(trainerpokemon==7) rp = 1;
 		try {
-			RPG.trainer.get(1).pokemon.add(new Pokemon(rp,"Asspoke",5,1,new int[]{0,0,0,0,0,0}));
+			Main.trainer.get(1).pokemon.add(new Pokemon(rp,"Asspoke",5,1,new int[]{0,0,0,0,0,0}));
 		} catch (Fail e) {
 			e.printStackTrace();
 		}

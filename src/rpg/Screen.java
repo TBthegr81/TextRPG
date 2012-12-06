@@ -34,8 +34,8 @@ public class Screen extends JFrame {
 	private Color textColor = Color.BLACK;
 	private final static int hpperecent = 80;
  	//private ArrayList<Pokemon> pokemon;
- 	Pokemon a = RPG.trainer.get(0).pokemon.get(0);
-	Pokemon b = RPG.trainer.get(1).pokemon.get(0);
+ 	Pokemon a = Main.trainer.get(0).pokemon.get(0);
+	Pokemon b = Main.trainer.get(1).pokemon.get(0);
 	
 	public Screen() {
 		
@@ -151,6 +151,7 @@ public class Screen extends JFrame {
 	public void drawWorld() {
 		//drawBackground();
 		repaint();
+		//contentPane.revalidate();
 	}
 	
 	/*private void drawBackground() {

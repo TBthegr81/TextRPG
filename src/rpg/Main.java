@@ -2,7 +2,7 @@ package rpg;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RPG
+public class Main
 {
 	//public static Pokemon pokemon[] = new Pokemon[5];
 	public static ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
@@ -19,8 +19,11 @@ public class RPG
 		
 		while(notloggedin)
 		{
-			String username = Lib.input("Username");
-			String password = Lib.md5(Lib.input("Password"));
+			//String username = Lib.input("Username");
+			//String password = Lib.md5(Lib.input("Password"));
+			String Logindata[] = Lib.loginPopup();
+			String username = Logindata[0];
+			String password = Lib.md5(Logindata[1]);
 			Trainer_id = Lib.Login(username,password);
 			if(Trainer_id < 1)
 			{

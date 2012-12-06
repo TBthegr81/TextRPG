@@ -174,24 +174,6 @@ public class Lib{
 		return new String[] {username, new String(pass_char)};
 	}
 	
-	// Ska vidareutvecklas, men idéen är typ att alla strider, folk som pratar med player och liknande ska vara events
-	// och hämtas från en databas för enkelt kunna ändra hur spelet körs.
-	public static void event(int id, String name)
-	{
-		if(id != 0)
-		{
-			System.out.println("Event nr: " + id);
-		}
-		else if (name != null)
-		{
-			System.out.println("Event name: " + name);
-		}
-		else
-		{
-			System.out.println("Invalid Event ID or Name!");
-		}
-	}
-	
 	// Funktion för att skicka POST-data till en hemsida, inte testad än.
 	public void doSubmit(String url, Map<String, String> data) throws Exception {
 		URL siteUrl = new URL(url);
@@ -405,9 +387,9 @@ public class Lib{
 	        }
 	        if(nickname != null)
 	        {
-	        	RPG.trainer.add(new Trainer(Trainer_id, nickname, type));
+	        	Main.trainer.add(new Trainer(Trainer_id, nickname, type));
 	        	Lib.write("yay");
-	        	size = RPG.trainer.size() -1;
+	        	size = Main.trainer.size() -1;
 	        }
 			return size;
 			
@@ -430,8 +412,8 @@ public class Lib{
         	while (rs.next())
         	{   	
                 try {
-                	int tid = RPG.trainer.size() -1;
-            		RPG.trainer.get(tid).pokemon.add(new Pokemon(rs.getInt("pokemonid"),rs.getString("nickname"),rs.getInt("level"),0, new int[]{rs.getInt("hp"),rs.getInt("attack"),rs.getInt("defense"),rs.getInt("spatt"),rs.getInt("spdef"),rs.getInt("speed")}));
+                	int tid = Main.trainer.size() -1;
+            		Main.trainer.get(tid).pokemon.add(new Pokemon(rs.getInt("pokemonid"),rs.getString("nickname"),rs.getInt("level"),0, new int[]{rs.getInt("hp"),rs.getInt("attack"),rs.getInt("defense"),rs.getInt("spatt"),rs.getInt("spdef"),rs.getInt("speed")}));
             	} catch (Fail e) {
             		e.printStackTrace();
             	}
@@ -476,7 +458,7 @@ public class Lib{
 	{
 		Lib.LoadTrainer(Trainer_id);
 		Lib.LoadPokemonList(Trainer_id);
-		RPG.pokemon.clear();
+		Main.pokemon.clear();
 		
 		//RPG.trainer[0] = new Trainer(RPG.username,0, RPG.pokemon);
 		Lib.LoadTrainer(100);
@@ -497,7 +479,7 @@ public class Lib{
 			{
 				try{
 				int u = Integer.parseInt(commanda[1]);
-				RPG.trainer.get(u).showInfo(u);
+				Main.trainer.get(u).showInfo(u);
 				}
 				catch(Exception ex){System.out.println("U need Int noob");}
 			}
@@ -506,7 +488,7 @@ public class Lib{
 			{
 				try{
 				int u = Integer.parseInt(commanda[1]);
-				RPG.pokemon.get(u).showInfo();
+				Main.pokemon.get(u).showInfo();
 				}
 				catch(Exception ex){System.out.println("U need Int noob");}
 			}

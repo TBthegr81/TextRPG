@@ -12,7 +12,7 @@ public class Battle {
 		
 		int battletype=type;
 		int rounds = 0;
-		System.out.println("New Battle!\n"+ RPG.trainer.get(0).returnname() + " VS " + RPG.trainer.get(1).returnname());
+		System.out.println("New Battle!\n"+ Main.trainer.get(0).returnname() + " VS " + Main.trainer.get(1).returnname());
 		boolean battle = true;
 		while(battle){
 			s.drawWorld();
@@ -27,7 +27,7 @@ public class Battle {
 			switch(command)
 			{
 				// Listar de Attackerna man har
-				case 1: int attack = Lib.choice("Your attacks:", RPG.trainer.get(0).pokemon.get(0).getAttacks(), 0);
+				case 1: int attack = Lib.choice("Your attacks:", Main.trainer.get(0).pokemon.get(0).getAttacks(), 0);
 				// Kallar på funktionen som ska skada motståndaren
 				damage(attack);
 				break;
@@ -58,10 +58,10 @@ public class Battle {
 	// Funktion som ska skada motståndaren
 	private static void damage(int attack)
 	{
-		System.out.println(RPG.trainer.get(0).pokemon.get(0).getName() + " attacks " + RPG.trainer.get(1).pokemon.get(0).getName() + " with " + RPG.trainer.get(0).pokemon.get(0).getAttack(attack));
+		System.out.println(Main.trainer.get(0).pokemon.get(0).getName() + " attacks " + Main.trainer.get(1).pokemon.get(0).getName() + " with " + Main.trainer.get(0).pokemon.get(0).getAttack(attack));
 		// Försöker räkna ut damage baserat på stats. Attackerande pokemonen attack gånger 2 delat i försvarande
 		// Pokémons defense
-		int damage = RPG.trainer.get(0).pokemon.get(0).getStats()[1] * 2 / RPG.trainer.get(1).pokemon.get(0).getStats()[2];
+		int damage = Main.trainer.get(0).pokemon.get(0).getStats()[1] * 2 / Main.trainer.get(1).pokemon.get(0).getStats()[2];
 		if(damage <= 0)
 		{
 			damage = 1;
