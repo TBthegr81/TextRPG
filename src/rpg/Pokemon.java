@@ -5,7 +5,7 @@ private String name;
 private int pkmnnr;
 private int owner;
 private int lvl;
-private int stats[] = new int[6];
+public int stats[] = new int[6];
 private int xp;
 private int maxxp;
 private String attacks[] = new String[4];

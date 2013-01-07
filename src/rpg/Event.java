@@ -22,13 +22,16 @@ public class Event {
 		case 1: System.out.println("You choose Bulbasaur\n");
 		trainerpokemon = 1;
 		trainerpokemonname = "Bulbasaur";
+		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/2/21/001Bulbasaur.png/120px-001Bulbasaur.png", "Bulbasaur");
 		break;
 		case 2: System.out.println("You choose Charmander\n");
 		trainerpokemonname = "Charmander";
+		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/7/73/004Charmander.png/120px-004Charmander.png", "Charmander");
 		trainerpokemon = 4;
 		break;
 		case 3:	System.out.println("You choose  Squirtle\n");
 		trainerpokemonname = "Squirtle";
+		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/3/39/007Squirtle.png/116px-007Squirtle.png", "Squirtle");
 		trainerpokemon = 7;
 		break;
 		}
@@ -61,7 +64,7 @@ public class Event {
 		Lib.writed(rivalname + ": But grandpa!! Why dont you remember my name??");
 		Lib.writed(rivalname + ": So, " + playername + " you wanna test this Pokémon out? Lets battle!");
 		int rp=0;
-		
+
 		// Precis innan Battle-funktionen kallas så skapas rivalen och hans Pokémon.
 		// Hans Pokémon bestäms av vad player valde så de inte kan ha samma.
 		trainer.add(new Trainer(0,rivalname,1));
@@ -75,7 +78,8 @@ public class Event {
 		}
 		
 		// Här börjar första striden
-		Battle.battle(0,1,0);
+		//Battle.battle(0,1,0);
+		Battletest.battleTest();
 	}
 	
 	public static void event_2()

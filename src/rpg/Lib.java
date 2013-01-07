@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -21,12 +22,14 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Lib{
+	
 	static String url = "jdbc:mysql://server.snekabel.se/pokemonrpg2";
     static String user = "pok";
     static String password = "Pokemon1";
@@ -502,5 +505,19 @@ public class Lib{
 				catch(Exception ex){System.out.println("U need Int noob");}
 			}
 		}
+	}
+	
+	public static void pokemonInfo(String link, Pokemon myPokemon)
+	{
+		ImageIcon myIcon = null;
+		try {
+			myIcon = new ImageIcon(new URL(link));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		int[] stats = myPokemon.getStats2();
+		String pokemon = myPokemon.getName();
+		JOptionPane.showMessageDialog(null, pokemon + "\nAttack:" + stats[1] + "\nDefense:" + stats[2] + "\nSpecial Attack:" + stats[3] + "\nSpecial Defense:+ " + stats[4] + "\nSpeed:" + stats[5], pokemon + " lv " + stats[0], JOptionPane.INFORMATION_MESSAGE, myIcon);
+		//JOptionPane.showConfirmDialog(null, fields, "Login",JOptionPane.OK_CANCEL_OPTION);
 	}
 }

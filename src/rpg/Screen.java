@@ -48,7 +48,7 @@ public class Screen extends JFrame {
 		setLocation(100,200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		contentPane = new JPanel();
+		/*contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 0, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -71,7 +71,7 @@ public class Screen extends JFrame {
 		//buttons[2].addActionListener(new do1());
 		panel.add(buttons[3]);
 		//buttons[3].addActionListener(new do1());
-		repaint();
+		*/
 	}
 	
 	private ArrayList<Image> getImages() {
@@ -123,7 +123,7 @@ public class Screen extends JFrame {
 			g2.fillRect(180, 133, 90, 12);
 			g2.setColor(healthColor);
 			g2.fillRect(180, 135, hpperecent, 8);
-			WriteText(g2,180,160,hpperecent + " / " + 100,textColor);
+			WriteText(g2,180,160,a.stats[0] + " / " + 100,textColor);
 			
 			// Draw enemy
 			x = 180;
