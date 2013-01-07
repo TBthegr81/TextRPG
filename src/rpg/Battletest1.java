@@ -2,7 +2,7 @@ package rpg;
 
 import java.util.ArrayList;
 
-public class Battletest {
+public class Battletest1 {
 	public static ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
 	public static ArrayList<Trainer> trainer = new ArrayList<Trainer>();
 	
