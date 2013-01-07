@@ -1,31 +1,32 @@
 package rpg;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Composite;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JProgressBar;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 
 public class Screen2 extends JFrame {
-
+	
 	private JPanel contentPane;
-	BattlePainter painter;
+	private static JProgressBar pkmn1_xpbar;
+	private static JProgressBar pkmn1_hpbar;
+	private static JProgressBar pkmn2_hpbar;
+	private static Timer timer;
+	private static int i = 0;
+	int number1 = 1;
+	int number2 = 4;
 	
 	/**
 	 * Create the frame.
@@ -66,7 +67,7 @@ public class Screen2 extends JFrame {
 		player.add(pkmn1, BorderLayout.WEST);
 		
 		JLabel pkmn1_sprite = new JLabel("");
-		pkmn1_sprite.setIcon(new ImageIcon(Screen2.class.getResource("/rpg/images/backsprites/1.png")));
+		pkmn1_sprite.setIcon(new ImageIcon(Screen2.class.getResource("images/backsprites/"+number1+".png")));
 		pkmn1.add(pkmn1_sprite);
 		
 		JPanel pkmn1_stats = new JPanel();
@@ -81,13 +82,13 @@ public class Screen2 extends JFrame {
 		pkmn1_statsimg.setBounds(107, 12, 225, 82);
 		pkmn1_stats.add(pkmn1_statsimg);
 		
-		JProgressBar pkmn1_xpbar = new JProgressBar();
-		pkmn1_xpbar.setValue(50);
+		pkmn1_xpbar = new JProgressBar();
+		pkmn1_xpbar.setValue(1);
 		pkmn1_xpbar.setForeground(Color.DARK_GRAY);
 		pkmn1_xpbar.setBounds(170, 56, 122, 10);
 		pkmn1_stats.add(pkmn1_xpbar);
 		
-		JProgressBar pkmn1_hpbar = new JProgressBar();
+		pkmn1_hpbar = new JProgressBar();
 		pkmn1_hpbar.setForeground(Color.RED);
 		pkmn1_hpbar.setStringPainted(true);
 		pkmn1_hpbar.setValue(50);
@@ -102,7 +103,7 @@ public class Screen2 extends JFrame {
 		foe.add(pkmn2, BorderLayout.EAST);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Screen2.class.getResource("/rpg/images/frontsprites/4.png")));
+		lblNewLabel.setIcon(new ImageIcon(Screen2.class.getResource("images/frontsprites/"+number2+".png")));
 		pkmn2.add(lblNewLabel);
 		
 		JPanel pkmn2_stats = new JPanel();
@@ -114,53 +115,79 @@ public class Screen2 extends JFrame {
 		lblNewLabel_1.setBounds(0, 0, 213, 76);
 		pkmn2_stats.add(lblNewLabel_1);
 		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setValue(50);
-		progressBar.setStringPainted(true);
-		progressBar.setForeground(Color.DARK_GRAY);
-		progressBar.setBounds(38, 24, 100, 14);
-		pkmn2_stats.add(progressBar);
-        painter = new BattlePainter();
-        painter.pokemonA = loadImage("1");
-        painter.pokemonB = loadImage("3");
+		pkmn2_hpbar = new JProgressBar();
+		pkmn2_hpbar.setValue(50);
+		pkmn2_hpbar.setStringPainted(true);
+		pkmn2_hpbar.setForeground(Color.DARK_GRAY);
+		pkmn2_hpbar.setBounds(38, 24, 100, 14);
+		pkmn2_stats.add(pkmn2_hpbar);
 	}
 	
-	private BufferedImage loadImage(String name) {
-        String imgFileName = "images/frontsprites/"+name+".png";
-        URL url = Screen2.class.getResource(imgFileName);
-        BufferedImage img = null;
-        try {
-            img =  ImageIO.read(url);
-        } catch (Exception e) {
-        }
-        return img;
-    }
-	
-	public class BattlePainter extends Component
-	{
-		BufferedImage pokemonA = null;
-		BufferedImage pokemonB = null;
-		public Dimension getPreferredSize(){
-	        return new Dimension(450, 125);
-	    }
-		
-		public void paint(Graphics2D g)
+	public static void setpkmn1NewXP(final int newXP)
+	{ 
+		int delay = 20; //milliseconds
+		ActionListener taskPerformer = new ActionListener()
 		{
-			Graphics2D g2 = (Graphics2D) g;
-			Dimension size = getSize();
-			Composite origComposite;
-			
-			origComposite = g2.getComposite();
-			
-			g2.drawImage(pokemonA,
-	        0, 0, 200, 200,
-	        0, 0,pokemonA.getWidth(null),
-	        pokemonA.getHeight(null), null);
-			g2.drawRect(50, 50, 100, 100);
-		}
+			public void actionPerformed(ActionEvent evt)
+			{
+				if(i < newXP)
+				{
+					pkmn1_xpbar.setValue(pkmn1_xpbar.getValue() + 1);
+				}
+				else
+				{
+					timer.stop();
+					i = 0;
+					System.out.println(i);
+				}
+				i++;
+		    }
+		};
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
+		
 	}
-	public void Draw()
-	{
-		repaint();
+	public static void setpkmn1XP(int newXP)
+	{ 
+		pkmn1_xpbar.setValue(newXP);
+	}
+	
+	public static void setpkmn1NewHP(final int newHP)
+	{ 
+		int delay = 20; //milliseconds
+		ActionListener taskPerformer = new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				if(i < newHP)
+				{
+					pkmn1_xpbar.setValue(pkmn1_hpbar.getValue() + 1);
+				}
+				else
+				{
+					timer.stop();
+				}
+				i++;
+		    }
+		};
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
+	}
+
+	
+	public static void setpkmn1HP(int newHP)
+	{ 
+		pkmn1_hpbar.setValue(newHP);
+	}
+	
+	
+	public static void setpkmn2NewHP(int newHP)
+	{ 
+		
+	}
+	
+	public static void setpkmn2HP(int newHP)
+	{ 
+		pkmn2_hpbar.setValue(newHP);
 	}
 }
