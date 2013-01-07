@@ -2,7 +2,7 @@ package rpg;
 
 import java.awt.EventQueue;
 
-public class BattleTest {
+public class BattleTest2 {
 	/**
 	 * Launch the application.
 	 */
