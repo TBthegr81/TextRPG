@@ -22,16 +22,16 @@ public class Event {
 		case 1: System.out.println("You choose Bulbasaur\n");
 		trainerpokemon = 1;
 		trainerpokemonname = "Bulbasaur";
-		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/2/21/001Bulbasaur.png/120px-001Bulbasaur.png", "Bulbasaur");
+		//Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/2/21/001Bulbasaur.png/120px-001Bulbasaur.png", "Bulbasaur");
 		break;
 		case 2: System.out.println("You choose Charmander\n");
 		trainerpokemonname = "Charmander";
-		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/7/73/004Charmander.png/120px-004Charmander.png", "Charmander");
+		//Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/7/73/004Charmander.png/120px-004Charmander.png", "Charmander");
 		trainerpokemon = 4;
 		break;
 		case 3:	System.out.println("You choose  Squirtle\n");
 		trainerpokemonname = "Squirtle";
-		Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/3/39/007Squirtle.png/116px-007Squirtle.png", "Squirtle");
+		//Lib.pokemonInfo("http://archives.bulbagarden.net/media/upload/thumb/3/39/007Squirtle.png/116px-007Squirtle.png", "Squirtle");
 		trainerpokemon = 7;
 		break;
 		}
@@ -79,7 +79,7 @@ public class Event {
 		
 		// Här börjar första striden
 		//Battle.battle(0,1,0);
-		Battletest.battleTest();
+		//Battletest.battleTest();
 	}
 	
 	public static void event_2()

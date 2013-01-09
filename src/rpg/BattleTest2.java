@@ -12,7 +12,9 @@ public class BattleTest2 {
 				try {
 					Screen2 frame = new Screen2();
 					frame.setVisible(true);
-					frame.Draw();
+					//Screen2.setpkmn1NewHP(40);
+					Screen2.setpkmn2HP(5);
+					Screen2.setpkmn1NewXP(70);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
