@@ -13,8 +13,8 @@ public class BattleTest2 {
 					Screen2 frame = new Screen2();
 					frame.setVisible(true);
 					//Screen2.setpkmn1NewHP(40);
-					Screen2.setpkmn2HP(5);
-					Screen2.setpkmn1NewXP(70);
+					//Screen2.setpkmn2HP(5);
+					Screen2.setpkmn1NewXP(100);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

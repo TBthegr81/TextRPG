@@ -21,8 +21,8 @@ public class Screen2 extends JFrame {
 	
 	private JPanel contentPane;
 	private static JProgressBar pkmn1_xpbar;
-	private static JProgressBar pkmn1_hpbar;
-	private static JProgressBar pkmn2_hpbar;
+	public static JProgressBar pkmn1_hpbar;
+	public static JProgressBar pkmn2_hpbar;
 	private static Timer timer;
 	private static int i = 0;
 	int number1 = 1;
@@ -45,6 +45,16 @@ public class Screen2 extends JFrame {
 		
 		JButton btnfight = new JButton("[FIGHT]");
 		panel.add(btnfight);
+		btnfight.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e) {
+			    Thread queryThread = new Thread() {
+			      public void run() {
+			    	  Screen2Lib.animateDis();
+			      }
+			    };
+			    queryThread.start();
+			  }
+			});
 		
 		JButton btnitems = new JButton("[ITEMS]");
 		panel.add(btnitems);
@@ -91,7 +101,7 @@ public class Screen2 extends JFrame {
 		pkmn1_hpbar = new JProgressBar();
 		pkmn1_hpbar.setForeground(Color.RED);
 		pkmn1_hpbar.setStringPainted(true);
-		pkmn1_hpbar.setValue(50);
+		pkmn1_hpbar.setValue(1);
 		pkmn1_hpbar.setBounds(193, 32, 102, 14);
 		pkmn1_stats.add(pkmn1_hpbar);
 		
@@ -116,14 +126,12 @@ public class Screen2 extends JFrame {
 		pkmn2_stats.add(lblNewLabel_1);
 		
 		pkmn2_hpbar = new JProgressBar();
-		pkmn2_hpbar.setValue(50);
+		pkmn2_hpbar.setValue(1);
 		pkmn2_hpbar.setStringPainted(true);
 		pkmn2_hpbar.setForeground(Color.DARK_GRAY);
 		pkmn2_hpbar.setBounds(38, 24, 100, 14);
 		pkmn2_stats.add(pkmn2_hpbar);
 	}
-<<<<<<< HEAD
-=======
 	
 	public static void setpkmn1NewXP(final int newXP)
 	{ 
@@ -192,5 +200,6 @@ public class Screen2 extends JFrame {
 	{ 
 		pkmn2_hpbar.setValue(newHP);
 	}
->>>>>>> refs/remotes/origin/master
+	
+	
 }
