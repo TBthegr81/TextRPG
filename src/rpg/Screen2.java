@@ -124,43 +124,4 @@ public class Screen2 extends JFrame {
         painter.pokemonA = loadImage("1");
         painter.pokemonB = loadImage("3");
 	}
-	
-	private BufferedImage loadImage(String name) {
-        String imgFileName = "images/frontsprites/"+name+".png";
-        URL url = Screen2.class.getResource(imgFileName);
-        BufferedImage img = null;
-        try {
-            img =  ImageIO.read(url);
-        } catch (Exception e) {
-        }
-        return img;
-    }
-	
-	public class BattlePainter extends Component
-	{
-		BufferedImage pokemonA = null;
-		BufferedImage pokemonB = null;
-		public Dimension getPreferredSize(){
-	        return new Dimension(450, 125);
-	    }
-		
-		public void paint(Graphics2D g)
-		{
-			Graphics2D g2 = (Graphics2D) g;
-			Dimension size = getSize();
-			Composite origComposite;
-			
-			origComposite = g2.getComposite();
-			
-			g2.drawImage(pokemonA,
-	        0, 0, 200, 200,
-	        0, 0,pokemonA.getWidth(null),
-	        pokemonA.getHeight(null), null);
-			g2.drawRect(50, 50, 100, 100);
-		}
-	}
-	public void Draw()
-	{
-		repaint();
-	}
 }
